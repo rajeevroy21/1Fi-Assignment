@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:5000/api";
+// const API_URL = "http://localhost:5000/api";
+const API_URL="https://onefi-assignment-0hs3.onrender.com/api";
 
 export async function getProducts() {
   const response = await fetch(
