@@ -27,7 +27,7 @@ export default function Navbar() {
           </Link>
 
           <a
-            href="http://localhost:5000/api/products"
+            href="https://onefi-assignment-0hs3.onrender.com/api/products"
             target="_blank"
             rel="noreferrer"
             className="transition hover:text-[#080b20]"
