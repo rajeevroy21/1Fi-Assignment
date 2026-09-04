@@ -854,30 +854,6 @@ MONGO_URI=YOUR_MONGODB_URI
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
-
----
-
-# Testing
-
-The API can be tested using:
-
-- Browser
-- Postman
-- Thunder Client
-- curl
-
-### Get all products
-
-```bash
-curl http://localhost:5000/api/products
-```
-
-### Get a specific product
-
-```bash
-curl http://localhost:5000/api/products/iphone-17-pro
-```
-
 ---
 
 # Deployment
@@ -1108,38 +1084,6 @@ Product-EMI Relationship
 
 ---
 
-# Assignment Requirement Checklist
-
-| Requirement | Status |
-|---|---|
-| Product listing | ✅ |
-| Dynamic product information | ✅ |
-| Dynamic pricing | ✅ |
-| Dynamic product images | ✅ |
-| Multiple product variants | ✅ |
-| Variant selection | ✅ |
-| Multiple EMI plans | ✅ |
-| EMI plan selection | ✅ |
-| Interest rate | ✅ |
-| Cashback | ✅ |
-| Unique product URLs | ✅ |
-| REST APIs | ✅ |
-| MongoDB database | ✅ |
-| Database schema | ✅ |
-| Seed data | ✅ |
-| API documentation | ✅ |
-| Example API responses | ✅ |
-| Setup instructions | ✅ |
-| Tech stack documentation | ✅ |
-| Schema documentation | ✅ |
-| GitHub repository | ✅ |
-| README.md | ✅ |
-| Frontend deployment | ✅ |
-| Backend deployment | ✅ |
-| Demo video | ✅ |
-
----
-
 # Live Links
 
 ## Frontend
@@ -1159,73 +1103,6 @@ YOUR_RENDER_URL
 ```text
 YOUR_GITHUB_REPOSITORY_URL
 ```
-
-## Demo Video
-
-```text
-YOUR_VIDEO_URL
-```
-
-Replace the placeholders above with the actual deployed URLs before submitting the assignment.
-
----
-
-# Demo Video
-
-The demo video covers the complete application.
-
-### Frontend
-
-- Product listing
-- Product details
-- Product variants
-- Dynamic product images
-- EMI plans
-- EMI selection
-- Proceed button
-
-### Backend
-
-- Backend project structure
-- Express server
-- API routes
-- Controllers
-- MongoDB models
-
-### Database
-
-- Product collection
-- EMI plan collection
-- Product variants
-- Product/EMI relationship
-- Seed data
-
-### Deployment
-
-- Vercel frontend
-- Render backend
-- MongoDB Atlas
-
----
-
-# Future Improvements
-
-Possible future improvements:
-
-- User authentication
-- User accounts
-- Order management
-- Payment gateway integration
-- Real EMI calculation
-- EMI payment tracking
-- Product search
-- Product filtering
-- Product categories
-- Pagination
-- Admin dashboard
-- API validation
-- Rate limiting
-- Improved error handling
 
 ---
 
