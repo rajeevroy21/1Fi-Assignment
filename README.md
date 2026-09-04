@@ -826,67 +826,6 @@ Required environment variable:
 ```env
 MONGO_URI=YOUR_MONGODB_URI
 ```
-
----
-
-# GitHub Repository
-
-Repository:
-
-https://github.com/rajeevroy21/1Fi-Assignment.git
-
-The repository contains:
-
-### Database Schema and Seed Data
-
-```text
-backend/src/models/Product.js
-backend/src/models/EmiPlan.js
-backend/src/seed/seed.js
-```
-
-### README.md
-
-This README contains:
-
-- Setup and run instructions
-- API endpoints
-- Example API responses
-- Tech stack
-- Database schema
-- Database relationship
-- Seed data
-- Deployment information
-
----
-
-# Assignment Deliverables
-
-| Requirement | Status |
-|---|---|
-| Product information | ✅ |
-| Product pricing | ✅ |
-| Product images | ✅ |
-| Product variants | ✅ |
-| Variant selection | ✅ |
-| Multiple EMI plans | ✅ |
-| EMI selection | ✅ |
-| Interest rate | ✅ |
-| Cashback | ✅ |
-| Unique product URLs | ✅ |
-| REST APIs | ✅ |
-| MongoDB database | ✅ |
-| Database schema | ✅ |
-| Seed data | ✅ |
-| Setup instructions | ✅ |
-| API documentation | ✅ |
-| Example API responses | ✅ |
-| Tech stack documentation | ✅ |
-| Schema documentation | ✅ |
-| GitHub repository | ✅ |
-| Frontend deployment | ✅ |
-| Backend deployment | ✅ |
-
 ---
 
 # Live Application
@@ -898,10 +837,6 @@ https://1-fi-assignment-red.vercel.app/
 ### Backend
 
 https://onefi-assignment-0hs3.onrender.com
-
-### GitHub
-
-https://github.com/rajeevroy21/1Fi-Assignment.git
 
 ---
 
