@@ -12,8 +12,6 @@ Product and EMI information is stored in MongoDB and fetched dynamically through
 
 - **Frontend:** https://1-fi-assignment-red.vercel.app/
 - **Backend API:** https://onefi-assignment-0hs3.onrender.com
-- **GitHub Repository:** https://github.com/rajeevroy21/1Fi-Assignment.git
-
 ---
 
 ## Tech Stack
