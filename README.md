@@ -1,10 +1,18 @@
 # 1Fi EMI Application
 
-A full-stack product and EMI application developed as part of the 1Fi SDE1 assignment.
+A full-stack product and EMI application developed as part of the **1Fi SDE1 assignment**.
 
 The application allows users to browse products, select product variants, view available EMI plans, select an EMI plan, and proceed with the selected plan.
 
 Product and EMI information is stored in MongoDB and fetched dynamically through REST APIs.
+
+---
+
+## Live Demo
+
+- **Frontend:** https://1-fi-assignment-red.vercel.app/
+- **Backend API:** https://onefi-assignment-0hs3.onrender.com
+- **GitHub Repository:** https://github.com/rajeevroy21/1Fi-Assignment.git
 
 ---
 
@@ -32,16 +40,38 @@ Product and EMI information is stored in MongoDB and fetched dynamically through
 
 ### Deployment
 
-- Vercel - Frontend
-- Render - Backend
-- MongoDB Atlas - Database
+- Vercel — Frontend
+- Render — Backend
+- MongoDB Atlas — Database
+
+---
+
+## Features
+
+- Product listing
+- Dynamic product data from MongoDB
+- Dynamic product pricing
+- Dynamic product images
+- Multiple product variants
+- Variant selection
+- Variant-specific images
+- Multiple EMI plans
+- EMI tenure selection
+- Interest rate display
+- Cashback display
+- EMI plan selection
+- Product-specific URLs using slugs
+- REST APIs
+- MongoDB database
+- Database seed script
+- Responsive UI
 
 ---
 
 # Project Structure
 
 ```text
-1fi-emi-app/
+1Fi-Assignment/
 │
 ├── frontend/
 │   ├── src/
@@ -93,73 +123,69 @@ Product and EMI information is stored in MongoDB and fetched dynamically through
 
 ---
 
-# Features
-
-- Product listing
-- Dynamic product data from MongoDB
-- Dynamic product pricing
-- Dynamic product images
-- Multiple product variants
-- Variant selection
-- Variant-specific images
-- Multiple EMI plans
-- EMI tenure selection
-- Interest rate display
-- Cashback display
-- Selected EMI plan
-- Product-specific URLs using slugs
-- REST APIs
-- MongoDB database
-- Database seed script
-- Responsive UI
-- Frontend and backend deployment
-
----
-
-# Application Flow
+# Application Architecture
 
 ```text
-User
- │
- ▼
+                    USER
+                      │
+                      ▼
+              ┌───────────────┐
+              │    Vercel     │
+              │ React Frontend│
+              └───────┬───────┘
+                      │
+                      │ REST API
+                      ▼
+              ┌───────────────┐
+              │    Render     │
+              │ Node + Express│
+              └───────┬───────┘
+                      │
+                      │ Mongoose
+                      ▼
+              ┌───────────────┐
+              │ MongoDB Atlas │
+              │   Database    │
+              └───────────────┘
+```
+
+### Data Flow
+
+```text
 React Frontend
- │
- │ GET /api/products
- │ GET /api/products/:slug
- ▼
+      │
+      │ GET /api/products
+      │ GET /api/products/:slug
+      ▼
 Express Backend
- │
- ▼
+      │
+      ▼
 Mongoose
- │
- ▼
+      │
+      ▼
 MongoDB Atlas
- │
- ▼
+      │
+      ▼
 Product + Variant + EMI Data
- │
- ▼
+      │
+      ▼
 React UI
 ```
 
 ---
 
-# Database
+# Database Schema
 
-MongoDB is used as the database.
-
-The application uses two main collections:
+The application uses **MongoDB** with two main collections:
 
 ```text
 products
 emiPlans
 ```
 
----
+## Product Schema
 
-# Product Schema
-
-The Product model stores product information and its variants.
+The Product model stores product information and product variants.
 
 ```js
 const variantSchema = new mongoose.Schema({
@@ -227,7 +253,7 @@ const productSchema = new mongoose.Schema(
 | Field | Type | Description |
 |---|---|---|
 | `name` | String | Product name |
-| `slug` | String | Unique product URL slug |
+| `slug` | String | Unique product URL |
 | `brand` | String | Product brand |
 | `mrp` | Number | Maximum retail price |
 | `price` | Number | Selling price |
@@ -287,7 +313,7 @@ const emiPlanSchema = new mongoose.Schema(
 
 | Field | Type | Description |
 |---|---|---|
-| `productId` | ObjectId | Reference to Product |
+| `productId` | ObjectId | Reference to the Product |
 | `tenure` | Number | EMI duration in months |
 | `monthlyAmount` | Number | Monthly EMI amount |
 | `interestRate` | Number | Interest rate |
@@ -297,7 +323,7 @@ const emiPlanSchema = new mongoose.Schema(
 
 # Database Relationship
 
-Each EMI plan belongs to a particular product.
+Each EMI plan is associated with a product through `productId`.
 
 ```text
 Product
@@ -309,7 +335,7 @@ EMI Plan
    └── productId
 ```
 
-For example:
+Example:
 
 ```text
 Product
@@ -347,15 +373,11 @@ The seed script:
 4. Inserts product data
 5. Creates EMI plans for each product
 
-Run the seed command:
+Run the seed script:
 
 ```bash
 npm run seed
 ```
-
----
-
-# Product Seed Data
 
 The seed data contains products with multiple variants.
 
@@ -375,23 +397,9 @@ OnePlus 13
 └── Blue · 512GB
 ```
 
-Each product has its own unique slug.
+Each product has multiple EMI plans.
 
-Example:
-
-```text
-iphone-17-pro
-samsung-s24-ultra
-oneplus-13
-```
-
----
-
-# EMI Seed Data
-
-The seed script creates multiple EMI plans for every product.
-
-Available tenures:
+### EMI Tenures
 
 ```text
 3 Months
@@ -402,41 +410,22 @@ Available tenures:
 48 Months
 ```
 
-Each EMI plan contains:
-
-```text
-Monthly Amount
-Tenure
-Interest Rate
-Cashback
-```
-
-Example:
-
-```js
-{
-  productId: product._id,
-  tenure: 12,
-  monthlyAmount: Math.round(product.price / 12),
-  interestRate: 0,
-  cashback: 7500
-}
-```
-
 ---
 
 # API Documentation
 
-Base API URL:
+## Base URL
+
+### Local
 
 ```text
 http://localhost:5000/api
 ```
 
-Production API:
+### Production
 
 ```text
-https://YOUR-RENDER-URL.onrender.com/api
+https://onefi-assignment-0hs3.onrender.com
 ```
 
 ---
@@ -461,9 +450,9 @@ GET /
 
 ---
 
-# GET /api/products
+## GET /api/products
 
-Returns all products from MongoDB.
+Returns all products stored in MongoDB.
 
 ### Request
 
@@ -471,10 +460,10 @@ Returns all products from MongoDB.
 GET /api/products
 ```
 
-### Example
+### Production Request
 
 ```text
-http://localhost:5000/api/products
+https://onefi-assignment-0hs3.onrender.com/api/products
 ```
 
 ### Example Response
@@ -526,7 +515,7 @@ GET /api/products/:slug
 ### Example
 
 ```text
-http://localhost:5000/api/products/iphone-17-pro
+https://onefi-assignment-0hs3.onrender.com/api/products/iphone-17-pro
 ```
 
 ### Example Response
@@ -590,7 +579,7 @@ http://localhost:5000/api/products/iphone-17-pro
 
 # API Error Response
 
-If a requested product does not exist:
+If a product does not exist:
 
 ### Request
 
@@ -607,7 +596,7 @@ GET /api/products/invalid-product
 }
 ```
 
-HTTP status:
+Status:
 
 ```text
 404
@@ -617,17 +606,15 @@ HTTP status:
 
 # Frontend Routes
 
-## Products Page
+## Products
 
 ```text
 /
 ```
 
-Displays all products fetched from the backend.
+Displays the products fetched from the backend.
 
----
-
-## Product Details Page
+## Product Details
 
 ```text
 /products/:slug
@@ -647,8 +634,6 @@ Examples:
 
 ## Prerequisites
 
-Install the following:
-
 - Node.js
 - npm
 - Git
@@ -656,23 +641,19 @@ Install the following:
 
 ---
 
-# Step 1: Clone Repository
+## 1. Clone the Repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/rajeevroy21/1Fi-Assignment.git
 ```
 
-Go to the project:
-
 ```bash
-cd 1fi-emi-app
+cd 1Fi-Assignment
 ```
 
 ---
 
-# Step 2: Backend Setup
-
-Go to the backend:
+## 2. Backend Setup
 
 ```bash
 cd backend
@@ -686,7 +667,7 @@ npm install
 
 ---
 
-# Step 3: Configure Backend Environment
+## 3. Configure Backend Environment
 
 Create:
 
@@ -701,62 +682,35 @@ PORT=5000
 MONGO_URI=YOUR_MONGODB_CONNECTION_STRING
 ```
 
-Example:
-
-```env
-PORT=5000
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/1fi
-```
-
-Do not commit `.env` to GitHub.
-
 ---
 
-# Step 4: Seed Database
-
-Run:
+## 4. Seed the Database
 
 ```bash
 npm run seed
 ```
 
-This will populate MongoDB with the sample products, variants, and EMI plans.
+This populates MongoDB with the product and EMI seed data.
 
 ---
 
-# Step 5: Start Backend
-
-Run:
+## 5. Start the Backend
 
 ```bash
 npm run dev
 ```
 
-Backend will run at:
+Backend:
 
 ```text
 http://localhost:5000
 ```
 
-Test the backend:
-
-```text
-http://localhost:5000/
-```
-
-Test the products API:
-
-```text
-http://localhost:5000/api/products
-```
-
 ---
 
-# Step 6: Frontend Setup
+## 6. Frontend Setup
 
-Open another terminal.
-
-From the project root:
+Open a new terminal:
 
 ```bash
 cd frontend
@@ -770,7 +724,7 @@ npm install
 
 ---
 
-# Step 7: Configure Frontend Environment
+## 7. Configure Frontend Environment
 
 Create:
 
@@ -786,21 +740,17 @@ VITE_API_URL=http://localhost:5000/api
 
 ---
 
-# Step 8: Start Frontend
-
-Run:
+## 8. Start the Frontend
 
 ```bash
 npm run dev
 ```
 
-Frontend will run at:
+Frontend:
 
 ```text
 http://localhost:5173
 ```
-
-Open the URL in your browser.
 
 ---
 
@@ -822,287 +772,136 @@ VITE_API_URL=http://localhost:5000/api
 For production:
 
 ```env
-VITE_API_URL=https://YOUR-RENDER-URL.onrender.com/api
+VITE_API_URL=https://onefi-assignment-0hs3.onrender.com/api
 ```
 
----
-
-# Security
-
-Environment files containing secrets should not be committed.
-
-Add the following to `.gitignore`:
-
-```text
-.env
-node_modules/
-```
-
-Use `.env.example` files to document required environment variables.
-
-Example:
-
-### backend/.env.example
-
-```env
-PORT=5000
-MONGO_URI=YOUR_MONGODB_URI
-```
-
-### frontend/.env.example
-
-```env
-VITE_API_URL=http://localhost:5000/api
-```
 ---
 
 # Deployment
 
-## Frontend - Vercel
+## Frontend — Vercel
 
-The React frontend can be deployed using Vercel.
-
-### Root Directory
+Frontend deployment:
 
 ```text
-frontend
+https://1-fi-assignment-red.vercel.app/
 ```
 
-### Build Command
+Build command:
 
 ```bash
 npm run build
 ```
 
-### Environment Variable
+Environment variable:
 
-```text
-VITE_API_URL=https://YOUR-RENDER-URL.onrender.com/api
+```env
+VITE_API_URL=https://onefi-assignment-0hs3.onrender.com/api
 ```
 
 ---
 
-# Backend - Render
+## Backend — Render
 
-The Express backend can be deployed using Render.
-
-### Root Directory
+Backend deployment:
 
 ```text
-backend
+https://onefi-assignment-0hs3.onrender.com
 ```
 
-### Build Command
+Build command:
 
 ```bash
 npm install
 ```
 
-### Start Command
+Start command:
 
 ```bash
 npm start
 ```
 
-### Environment Variable
+Required environment variable:
 
-```text
+```env
 MONGO_URI=YOUR_MONGODB_URI
 ```
 
 ---
 
-# MongoDB Atlas
+# GitHub Repository
 
-MongoDB Atlas is used for the production database.
+Repository:
 
-The backend connects to MongoDB using:
-
-```env
-MONGO_URI=YOUR_MONGODB_CONNECTION_STRING
-```
-
-Make sure the MongoDB Atlas network access settings allow the deployed backend to connect.
-
----
-
-# Production Architecture
-
-```text
-                   USER
-                     │
-                     ▼
-              ┌─────────────┐
-              │   Vercel    │
-              │    React    │
-              │  Frontend   │
-              └──────┬──────┘
-                     │
-                     │ HTTPS REST API
-                     ▼
-              ┌─────────────┐
-              │   Render    │
-              │ Node +      │
-              │ Express     │
-              └──────┬──────┘
-                     │
-                     │ Mongoose
-                     ▼
-              ┌─────────────┐
-              │  MongoDB    │
-              │    Atlas    │
-              └─────────────┘
-```
-
----
-
-# GitHub Repository Deliverables
-
-The GitHub repository contains all required assignment deliverables.
-
-## a. Database Schema and Seed Data
+https://github.com/rajeevroy21/1Fi-Assignment.git
 
 The repository contains:
 
-- Product database schema
-- Product variant schema
-- EMI plan schema
-- Product seed data
-- EMI seed data
-- Product-to-EMI relationship
-
-### Database Models
+### Database Schema and Seed Data
 
 ```text
 backend/src/models/Product.js
 backend/src/models/EmiPlan.js
-```
-
-### Seed Data
-
-```text
 backend/src/seed/seed.js
 ```
 
-The seed script can be executed using:
+### README.md
 
-```bash
-npm run seed
-```
+This README contains:
 
----
-
-# b. README.md
-
-This README contains all required documentation.
-
-## i. Setup and Run Instructions
-
-This document explains:
-
-- Prerequisites
-- Repository cloning
-- Backend setup
-- Frontend setup
-- MongoDB configuration
-- Environment variables
-- Database seeding
-- Running the backend
-- Running the frontend
+- Setup and run instructions
+- API endpoints
+- Example API responses
+- Tech stack
+- Database schema
+- Database relationship
+- Seed data
+- Deployment information
 
 ---
 
-## ii. API Endpoints and Example Responses
+# Assignment Deliverables
 
-The following APIs are documented:
-
-```text
-GET /
-GET /api/products
-GET /api/products/:slug
-```
-
-Each API includes:
-
-- HTTP method
-- Endpoint
-- Description
-- Example request
-- Example JSON response
-- Error response where applicable
+| Requirement | Status |
+|---|---|
+| Product information | ✅ |
+| Product pricing | ✅ |
+| Product images | ✅ |
+| Product variants | ✅ |
+| Variant selection | ✅ |
+| Multiple EMI plans | ✅ |
+| EMI selection | ✅ |
+| Interest rate | ✅ |
+| Cashback | ✅ |
+| Unique product URLs | ✅ |
+| REST APIs | ✅ |
+| MongoDB database | ✅ |
+| Database schema | ✅ |
+| Seed data | ✅ |
+| Setup instructions | ✅ |
+| API documentation | ✅ |
+| Example API responses | ✅ |
+| Tech stack documentation | ✅ |
+| Schema documentation | ✅ |
+| GitHub repository | ✅ |
+| Frontend deployment | ✅ |
+| Backend deployment | ✅ |
 
 ---
 
-## iii. Tech Stack Used
+# Live Application
 
 ### Frontend
 
-```text
-React
-Vite
-React Router
-Tailwind CSS
-JavaScript
-```
+https://1-fi-assignment-red.vercel.app/
 
 ### Backend
 
-```text
-Node.js
-Express.js
-Mongoose
-REST API
-```
+https://onefi-assignment-0hs3.onrender.com
 
-### Database
+### GitHub
 
-```text
-MongoDB
-MongoDB Atlas
-```
-
-### Deployment
-
-```text
-Vercel
-Render
-MongoDB Atlas
-```
-
----
-
-## iv. Schema Used
-
-The repository and README document the following schemas:
-
-```text
-Product Schema
-Variant Schema
-EMI Plan Schema
-Product-EMI Relationship
-```
-
----
-
-# Live Links
-
-## Frontend
-
-```text
-YOUR_VERCEL_URL
-```
-
-## Backend
-
-```text
-YOUR_RENDER_URL
-```
-
-## GitHub Repository
-
-```text
-YOUR_GITHUB_REPOSITORY_URL
-```
+https://github.com/rajeevroy21/1Fi-Assignment.git
 
 ---
 
@@ -1111,9 +910,3 @@ YOUR_GITHUB_REPOSITORY_URL
 **Rajeev Kumar**
 
 Full Stack Developer
-
----
-
-# License
-
-This project was developed as part of the **1Fi SDE1 Assignment**.
